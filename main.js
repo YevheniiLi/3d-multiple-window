@@ -120,21 +120,27 @@ else
 		cubes = [];
 
 		// add new cubes based on the current window setup
-		for (let i = 0; i < wins.length; i++)
-		{
+		for (let i = 0; i < wins.length; i++) {
 			let win = wins[i];
-
-			let c = new t.Color();
-			c.setHSL(i * .1, 1.0, .5);
-
-			let s = 100 + i * 50;
-			let cube = new t.Mesh(new t.BoxGeometry(s, s, s), new t.MeshBasicMaterial({color: c , wireframe: true}));
-			cube.position.x = win.shape.x + (win.shape.w * .5);
-			cube.position.y = win.shape.y + (win.shape.h * .5);
-
-			world.add(cube);
-			cubes.push(cube);
+		
+			let radius = 50 + i * 25; // радиус сферы
+		
+			// Define a color for the sphere
+			let sphereColor = new t.Color();
+			sphereColor.setHSL(i * 0.1, 1.0, 0.5);
+		
+			let sphere = new t.Mesh(
+				new t.SphereGeometry(radius, 32, 32),
+				new t.MeshBasicMaterial({ color: sphereColor, wireframe: true })
+			);
+		
+			sphere.position.x = win.shape.x + win.shape.w * 0.5;
+			sphere.position.y = win.shape.y + win.shape.h * 0.5;
+		
+			world.add(sphere);
+			cubes.push(sphere);
 		}
+		
 	}
 
 	function updateWindowShape (easing = true)
